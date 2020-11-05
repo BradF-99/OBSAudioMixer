@@ -5,10 +5,27 @@
     xmlns:local="using:OBSAudioMixer"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <TextBox x:Name="tbIP" HorizontalAlignment="Center" Margin="0,424,0,0" PlaceholderText="Server IP / Address" TextWrapping="Wrap" VerticalAlignment="Top" Width="215">
+            <FlyoutBase.AttachedFlyout>
+                <Flyout>
+                    <TextBlock Text="Please make sure the server address and port is correct."  />
+                </Flyout>
+            </FlyoutBase.AttachedFlyout>
+        </TextBox>
+        <TextBox x:Name="tbPort" HorizontalAlignment="Center" Margin="0,462,0,0" PlaceholderText="Port" TextWrapping="Wrap" VerticalAlignment="Top" Width="215"/>
+        <TextBox x:Name="tbPassword" HorizontalAlignment="Center" Margin="0,500,0,0" PlaceholderText="Password" TextWrapping="Wrap" VerticalAlignment="Top" Width="215">
+            <FlyoutBase.AttachedFlyout>
+                <Flyout>
+                    <TextBlock Text="Please make sure the password is correct."  />
+                </Flyout>
+            </FlyoutBase.AttachedFlyout>
+        </TextBox>
+        <Button x:Name="btnLogin" Content="Log In" Margin="0,565,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Tapped="btnLogin_Tapped"/>
 
     </Grid>
 </Page>

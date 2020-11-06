@@ -46,6 +46,8 @@ namespace OBSAudioMixer
 
             _obs.Disconnected += _obs_Disconnected;
             _obs.SourceVolumeChanged += _obs_SourceVolumeChanged;
+            _obs.SourceCreated += _obs_SourceCreated;
+            _obs.SourceDestroyed += _obs_SourceDestroyed;
 
             AuthClass _auth = (AuthClass)e.Parameter;
 
@@ -71,6 +73,24 @@ namespace OBSAudioMixer
             MixerInit();
         }
 
+        private async void _obs_SourceDestroyed(OBSWebsocket sender, string sourceName, string sourceType, string sourceKind)
+        {
+            Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                SliderInit();
+                MixerInit();
+            });
+        }
+
+        private async void _obs_SourceCreated(OBSWebsocket sender, SourceSettings settings)
+        {
+            Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                SliderInit();
+                MixerInit();
+            });
+        }
+
         private void _obs_Disconnected(object sender, EventArgs e)
         {
             _obs = null;
@@ -87,6 +107,7 @@ namespace OBSAudioMixer
 
         private void SliderInit()
         {
+            this.currentSources.Clear();
             List<SceneItem> sceneItems = _obs.GetCurrentScene().Items;
             foreach (SceneItem item in sceneItems)
             {
@@ -113,6 +134,7 @@ namespace OBSAudioMixer
         
         private void MixerInit()
         {
+            spMixer.Children.Clear();
             foreach (SourceClass source in this.currentSources.Values)
             {
                 Grid _grid = new Grid();

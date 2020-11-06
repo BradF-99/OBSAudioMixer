@@ -119,6 +119,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AudioConversionHelper.cs" />
+    <Compile Include="AuthClass.cs" />
+    <Compile Include="ColourHelper.cs" />
     <Compile Include="MixerPage.xaml.cs">
       <DependentUpon>MixerPage.xaml</DependentUpon>
     </Compile>
@@ -126,6 +129,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SourceClass.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

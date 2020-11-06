@@ -24,14 +24,31 @@ namespace OBSAudioMixer
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private OBSWebsocket _obs;
-
         public MainPage()
         {
             this.InitializeComponent();
-            _obs = new OBSWebsocket();
+        }
 
-            _obs.Connected += OnConnect;
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            if(e.Parameter is Exception)
+            {
+                if (e.Parameter is AuthFailureException)
+                {
+                    FlyoutBase.ShowAttachedFlyout(tbPassword);
+                }
+                else
+                {
+                    FlyoutBase.ShowAttachedFlyout(tbIP);
+                }
+            }
+
+            tbIP.IsEnabled = true;
+            tbPort.IsEnabled = true;
+            tbPassword.IsEnabled = true;
+            btnLogin.IsEnabled = true;
         }
 
         private void btnLogin_Tapped(object sender, TappedRoutedEventArgs e)
@@ -41,36 +58,8 @@ namespace OBSAudioMixer
             tbPassword.IsEnabled = false;
             btnLogin.IsEnabled = false;
 
-            if (!_obs.IsConnected)
-            {
-                try
-                {
-                    _obs.Connect($"ws://{tbIP.Text}:{tbPort.Text}", tbPassword.Text);
-                }
-                catch (Exception ex)
-                {
-                    if (ex is AuthFailureException)
-                    {
-                        FlyoutBase.ShowAttachedFlyout(tbPassword);
-                    }
-                    else
-                    {
-                        FlyoutBase.ShowAttachedFlyout(tbIP);
-                    }
-                }
-            }
-
-            _obs.Disconnect();
-
-            tbIP.IsEnabled = true;
-            tbPort.IsEnabled = true;
-            tbPassword.IsEnabled = true;
-            btnLogin.IsEnabled = true;
-        }
-
-        private void OnConnect(object sender, EventArgs e)
-        {
-            Frame.Navigate(typeof(MixerPage), _obs);
+            AuthClass _auth = new AuthClass(tbIP.Text, tbPort.Text, tbPassword.Text);
+            Frame.Navigate(typeof(MixerPage), _auth);
         }
     }
 }

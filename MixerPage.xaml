@@ -9,6 +9,14 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <TextBlock  Text="Hello!!!!! it work" FontSize="73"/>
+        <TextBlock Text=""></TextBlock>
+        <ScrollViewer HorizontalScrollMode="Enabled" Width="Auto" HorizontalScrollBarVisibility="Auto">
+            <StackPanel x:Name="spMixer" Margin="20" Orientation="Horizontal">
+                <!--<Rectangle Fill="Red" Width="150" Height="Auto" Margin="5" />
+                <Rectangle Fill="Blue" Width="150" Height="Auto" Margin="5" />
+                <Rectangle Fill="Green" Width="150" Height="Auto" Margin="5" />
+                <Rectangle Fill="Purple" Width="150" Height="Auto" Margin="5" />-->
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>
